@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "388320152414",
+    "firebase_url": "https://deliverygo-f8c57.firebaseio.com",
+    "project_id": "deliverygo-f8c57",
+    "storage_bucket": "deliverygo-f8c57.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388320152414:android:a52f679aba1e9a02",
+        "android_client_info": {
+          "package_name": "com.clauceta.deliverygo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388320152414-rgag6o5a8cvlchge7kt3s46i7sebokck.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clauceta.deliverygo",
+            "certificate_hash": "336157dbdd129d0acf240dc4135b91e64730695f"
+          }
+        },
+        {
+          "client_id": "388320152414-g9acv6u8npnpdav9v38cv34pgs6emvos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqS2iAc7sbLd7AmsHhXxAezfz2cEQJKV8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388320152414-g9acv6u8npnpdav9v38cv34pgs6emvos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
