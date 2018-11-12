@@ -10,8 +10,8 @@ import com.google.firebase.database.FirebaseDatabase
 class MainActivity : AppCompatActivity() {
 
     var database = FirebaseDatabase.getInstance()
-    var DBreferencia = database.getReference("usuario")
-
+    var DBreferencia_usuario = database.getReference("Usuario")
+    var DBreferencia_pedido = database.getReference("Pedido")
 
 
 
@@ -20,15 +20,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val usuario = Usuario()
+        val pedido = Pedido()
+
 
         usuario.setnome("Claucio Filho")
         usuario.setemail("claucio@gmail.com")
         usuario.setid(0)
         usuario.setsenha("tsaftsfatsa")
 
+        pedido.setPedido_origem_rua("Rua Sao Joaquim")
+        pedido.setPedido_origem_numero("1731 ap 11")
+        pedido.setPedido_destino_rua("AV. Carlos Botelho")
+        pedido.setPedido_destino_numero("4040")
+        pedido.setPedido_descricao("sanduiche")
 
-        DBreferencia.child(usuario.getid().toString()).setValue(usuario)
 
+        DBreferencia_usuario.child(usuario.getid().toString()).setValue(usuario)
+
+        DBreferencia_pedido.child(pedido.getId().toString()).setValue(pedido)
     }
 
 

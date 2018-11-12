@@ -23,6 +23,18 @@
             android:textColorHint="#A9A9A9" />
 
         <EditText
+            android:id="@+id/campo_email_cadastro"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/campos"
+            android:hint="e-mail"
+            android:inputType="textEmailAddress"
+            android:padding="20dp"
+            android:textColorHint="#A9A9A9" />
+
+        <EditText
             android:id="@+id/campo_password"
             android:layout_width="300dp"
             android:layout_height="60dp"
@@ -34,19 +46,8 @@
             android:padding="20dp"
             android:textColorHint="#A9A9A9" />
 
-        <EditText
-            android:id="@+id/campo_confirm_password"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center"
-            android:background="@drawable/campos"
-            android:hint="confirm password"
-            android:inputType="textPassword"
-            android:padding="20dp"
-            android:textColorHint="#A9A9A9" />
-
         <Button
+            android:id="@+id/botao_sign_up"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
