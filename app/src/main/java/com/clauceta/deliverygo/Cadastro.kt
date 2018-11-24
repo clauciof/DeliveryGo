@@ -35,7 +35,7 @@ class Cadastro : AppCompatActivity() {
             }else{
                 //faz cadastro
                 myAuth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener { task: Task<AuthResult> ->
-                    if (task.isSuccessful) {
+                        if (task.isSuccessful) {
                         //Registration OK Faz Cadastro
                         Log.i("create user", "sucesso")
                         Toast.makeText(this, "Usuario cadastrado", Toast.LENGTH_LONG).show()

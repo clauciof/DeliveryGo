@@ -1,11 +1,20 @@
 package com.clauceta.deliverygo
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.pagina_login.*
 import com.google.firebase.database.FirebaseDatabase
 
 class Login: AppCompatActivity() {
+
+    private var firebaseauth = FirebaseAuth.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -13,16 +22,40 @@ class Login: AppCompatActivity() {
 
         botao_login.setOnClickListener(){
 
-            val paginaPrincipal = Intent(this, MainActivity::class.java)
-            startActivity(paginaPrincipal)
+            val email = campo_email.text.toString()
+            val senha = campo_senha.text.toString()
 
+
+            //Validaçao de campos
+            if(email.isNullOrEmpty() || senha.isNullOrEmpty()){
+                //nao faz login
+                Toast.makeText(this, "Campos devem ser preenchidos", Toast.LENGTH_LONG).show()
+
+            }else{
+                //faz login
+               firebaseauth.signInWithEmailAndPassword(email, senha).addOnCompleteListener { task: Task<AuthResult> ->
+                    if (task.isSuccessful) {
+                        //Registration OK Faz Cadastro
+                        Log.i("login user", "sucesso ao fazer login")
+                        Toast.makeText(this, "Login efetuado com sucesso", Toast.LENGTH_LONG).show()
+
+                        val paginaPrincipal = Intent(this, MainActivity::class.java)
+                        startActivity(paginaPrincipal)
+
+                    } else {
+                        //Registration error
+                        Log.i(" login user", "erro")
+                        Toast.makeText(this, "Erro ao fazer login", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
         }
 
         botao_cadastre.setOnClickListener(){
 
             val pagina_cadastro = Intent(this, Cadastro::class.java)
             startActivity(pagina_cadastro)
-
+            finish()
         }
     }
 }

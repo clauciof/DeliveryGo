@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/seuspedidos" android:title="Suas viagens"/>
+    <item android:id="@+id/suasviagens" android:title="Suas viagens"/>
     <item android:id="@+id/suasentregas" android:title="Suas entregas"/>
     <item android:id="@+id/pedidoemandamento" android:title="Pedido em andamento"/>
     <item android:id="@+id/enderecos" android:title="Endereços"/>
