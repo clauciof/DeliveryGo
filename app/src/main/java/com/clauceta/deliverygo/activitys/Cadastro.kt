@@ -1,21 +1,23 @@
-package com.clauceta.deliverygo
+package com.clauceta.deliverygo.activitys
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.google.android.gms.tasks.OnCompleteListener
+import com.clauceta.deliverygo.R
+import com.clauceta.deliverygo.config.ConfiguracaoFirebase
+import com.clauceta.deliverygo.models.Usuario
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.pagina_cadastro.*
-import kotlinx.android.synthetic.main.pagina_login.*
 
 class Cadastro : AppCompatActivity() {
 
-    var myAuth = FirebaseAuth.getInstance()
-
+    var firebaseauth = FirebaseAuth.getInstance()
+    private var referenciafirebase = FirebaseDatabase.getInstance().reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +36,10 @@ class Cadastro : AppCompatActivity() {
 
             }else{
                 //faz cadastro
-                myAuth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener { task: Task<AuthResult> ->
+                firebaseauth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener { task: Task<AuthResult> ->
                         if (task.isSuccessful) {
+                            registrausuario(Nome, email, senha, task.getResult()!!.user.uid)
+
                         //Registration OK Faz Cadastro
                         Log.i("create user", "sucesso")
                         Toast.makeText(this, "Usuario cadastrado", Toast.LENGTH_LONG).show()
@@ -50,6 +54,19 @@ class Cadastro : AppCompatActivity() {
         }
 
 
+    }
+
+    fun registrausuario(Nome: String, email: String, senha: String, id: String){
+
+        referenciafirebase = ConfiguracaoFirebase.getFirebase()
+
+        val usuario = Usuario()
+        usuario.setnome(Nome)
+        usuario.setemail(email)
+        usuario.setid(id)
+        usuario.setsenha(senha)
+
+        referenciafirebase.child(usuario.getid()).setValue(usuario)
     }
 
 

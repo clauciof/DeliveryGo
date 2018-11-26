@@ -1,4 +1,4 @@
-package com.clauceta.deliverygo
+package com.clauceta.deliverygo.models
 
 open class Pedido {
 

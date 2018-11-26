@@ -1,23 +1,25 @@
-package com.clauceta.deliverygo
+package com.clauceta.deliverygo.activitys
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main.*
-import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.widget.Toast
+import com.clauceta.deliverygo.R
+import com.clauceta.deliverygo.config.ConfiguracaoFirebase
+import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    var database = FirebaseDatabase.getInstance()
+   /* var database = FirebaseDatabase.getInstance()
     var DBreferencia_usuario = database.getReference("Usuario")
-    var DBreferencia_pedido = database.getReference("Pedido")
-    var firebaseauth = FirebaseAuth.getInstance()
+    var DBreferencia_pedido = database.getReference("Pedido")*/
+    var firebaseauth = FirebaseAuth.getInstance().currentUser!!.uid
+    var firebaseusuario = FirebaseAuth.getInstance()
 
 
 
@@ -25,8 +27,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         navigationview.setNavigationItemSelectedListener(this)
+
+        Toast.makeText(this, firebaseauth, Toast.LENGTH_SHORT).show()
 
         /*val usuario = Usuario()
         val pedido = Pedido()
@@ -51,24 +54,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
      override fun onNavigationItemSelected(item: MenuItem):Boolean {
         when(item.itemId){
-            R.id.suasviagens->{
+            R.id.suasviagens ->{
                 Toast.makeText(this, "suas viagens", Toast.LENGTH_SHORT).show()
             }
 
-            R.id.suasentregas->{
+            R.id.suasentregas ->{
                 Toast.makeText(this, "suas entregas", Toast.LENGTH_SHORT).show()
             }
 
-            R.id.pedidoemandamento->{
+            R.id.pedidoemandamento ->{
                 Toast.makeText(this, "pedidos em andamento", Toast.LENGTH_SHORT).show()
             }
-            R.id.enderecos->{
+            R.id.enderecos ->{
                 Toast.makeText(this, "enderecos", Toast.LENGTH_SHORT).show()
             }
 
-            R.id.sair->{
+            R.id.sair ->{
                 Toast.makeText(this, "sair", Toast.LENGTH_SHORT).show()
-                firebaseauth.signOut()
+                firebaseusuario.signOut()
                 val pagina_login = Intent(this, Login::class.java)
                 startActivity(pagina_login)
                 finish()

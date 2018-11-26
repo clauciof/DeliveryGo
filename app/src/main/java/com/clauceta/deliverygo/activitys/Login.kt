@@ -1,24 +1,28 @@
-package com.clauceta.deliverygo
-import android.app.Activity
+package com.clauceta.deliverygo.activitys
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.clauceta.deliverygo.R
+import com.clauceta.deliverygo.config.ConfiguracaoFirebase
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.pagina_login.*
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.pagina_login.*
 
 class Login: AppCompatActivity() {
 
     private var firebaseauth = FirebaseAuth.getInstance()
+    private var referenciafirebase = FirebaseDatabase.getInstance().reference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pagina_login)
+
 
         botao_login.setOnClickListener(){
 
