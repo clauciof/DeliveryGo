@@ -1,6 +1,7 @@
 package com.clauceta.deliverygo.activitys
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,8 @@ import android.view.View
 import android.widget.ImageView
 import com.clauceta.deliverygo.BuildConfig
 import com.clauceta.deliverygo.config.GlideApp
+import com.clauceta.deliverygo.models.Usuario
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.header.*
 
 
@@ -30,7 +33,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     var DBreferencia_usuario = database.getReference("Usuario")
     var DBreferencia_pedido = database.getReference("Pedido")*/
     var firebaseauth = FirebaseAuth.getInstance().currentUser!!.uid
+    var usuarioatual = FirebaseDatabase.getInstance().reference.child("Usuario").child(firebaseauth)
     var firebaseusuario = FirebaseAuth.getInstance()
+
+
+    var caminhoFoto:String? = null //salva o caminho da foto tirada
+    var caminhoFotoAceita:String? = null //salva o caminho da foto aceita pelo usuário
 
     companion object {
         private const val REQUEST_CAMERA: Int = 1
@@ -44,6 +52,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationview.setNavigationItemSelectedListener(this)
         val headView: View = navigationview.getHeaderView(0)
         val fotoPerfil: ImageView = headView.findViewById(R.id.foto_usuario)
+
+        carregaDados(this)
 
         fotoPerfil.setOnClickListener {
             tiraFoto()
@@ -118,8 +128,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
      fun onDrawerOpened (drawerView: View){
-         foto_usuario
-
     }
 
 
@@ -164,15 +172,49 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //exibe a foto retornada pelo aplicativo de câmera
         if(requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK){
 
-            GlideApp.with(this)
-                    .load()
-                    .placeholder()
+          /*  GlideApp.with(this)
+                    .load(caminhoFoto)
+                    //placeholder(R.drawable.foto) nao usado
                     .centerCrop()
-                    .into()
+                    .into(foto_usuario)
 
-           // caminhoFotoAceita = caminhoFoto
+           caminhoFotoAceita = caminhoFoto */
 
         }
+    }
+
+
+    //exibe as informações do contatinho na Activity
+    private fun carregaDados(context: Context) {
+
+      /*  GlideApp.with(this)
+                .load(caminhoFoto)
+                //placeholder(R.drawable.foto) nao usado
+                .centerCrop()
+                .into(foto_usuario)
+
+        caminhoFotoAceita = caminhoFoto*/
+
+
+        // User data change listener
+        usuarioatual.addListenerForSingleValueEvent(object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var usuario = Usuario()
+
+                usuario.setnome(dataSnapshot.child("nome").value.toString())
+                usuario.setemail(dataSnapshot.child("email").value.toString())
+
+
+                nickname_usuario.setText(usuario.getnome())
+                email_usuario.setText(usuario.getemail())
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
 
     }
 

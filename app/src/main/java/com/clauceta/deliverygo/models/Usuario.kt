@@ -2,14 +2,14 @@ package com.clauceta.deliverygo.models
 
  open class Usuario{
 
-     private var nome: String = "nome"
+     private var nickname: String = "nome"
      private var email: String = "email"
      private var id: String = " "
      private var senha: String = "_senha"
 
 
      open fun setnome(nome: String){
-         this.nome = nome
+         this.nickname = nome
      }
 
      open fun setemail(email: String){
@@ -25,7 +25,7 @@ package com.clauceta.deliverygo.models
      }
 
      open fun getnome(): String{
-         return this.nome
+         return this.nickname
      }
 
      open fun getid(): String{
