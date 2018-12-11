@@ -6,16 +6,29 @@ import com.google.firebase.database.FirebaseDatabase
 class ConfiguracaoFirebase {
 
     companion object {
-        private var referenciafirebase = FirebaseDatabase.getInstance().getReference("Usuario")
+        private var referenciafirebaseUsuario = FirebaseDatabase.getInstance().getReference("Usuario")
 
-        fun getFirebase(): DatabaseReference{
+        private var referenciafirebasePedido = FirebaseDatabase.getInstance().getReference("Pedido")
 
-            if(referenciafirebase == null){
-                referenciafirebase = FirebaseDatabase.getInstance().getReference("Usuario")
+        fun getFirebaseUsuario(): DatabaseReference{
+
+            if(referenciafirebaseUsuario == null){
+                referenciafirebaseUsuario = FirebaseDatabase.getInstance().getReference("Usuario")
             }
 
 
-            return referenciafirebase
+            return referenciafirebaseUsuario
+        }
+
+
+        fun getFirebasePedido(): DatabaseReference{
+
+            if(referenciafirebasePedido == null){
+                referenciafirebasePedido = FirebaseDatabase.getInstance().getReference("Pedido")
+            }
+
+
+            return referenciafirebasePedido
         }
     }
 

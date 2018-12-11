@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/suasviagens" android:title="Suas viagens"/>
-    <item android:id="@+id/suasentregas" android:title="Suas entregas"/>
-    <item android:id="@+id/pedidoemandamento" android:title="Pedido em andamento"/>
-    <item android:id="@+id/enderecos" android:title="Endereços"/>
-    <item android:id="@+id/sair" android:title="Sair"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/seuspedidos" android:title="Seus pedidos" android:icon="@drawable/ic_action_pedidos"/>
+        <item android:id="@+id/suasentregas" android:title="Suas entregas" android:icon="@drawable/ic_action_entregas"/>
+        <item android:id="@+id/pedidoemandamento" android:title="Pedido em andamento" android:icon="@drawable/ic_action_emandamento"/>
+        <item android:id="@+id/enderecos" android:title="Endereços" android:icon="@drawable/ic_action_enderecos"/>
+        <item android:id="@+id/sair" android:title="Sair" android:icon="@drawable/ic_action_sair"/>
+    </group>
+
     
 
 </menu>

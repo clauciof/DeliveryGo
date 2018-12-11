@@ -39,6 +39,7 @@ class Cadastro : AppCompatActivity() {
                 firebaseauth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener { task: Task<AuthResult> ->
                         if (task.isSuccessful) {
                             registrausuario(Nome, email, senha, task.getResult()!!.user.uid)
+                            finish()
 
                         //Registration OK Faz Cadastro
                         Log.i("create user", "sucesso")
@@ -58,7 +59,7 @@ class Cadastro : AppCompatActivity() {
 
     fun registrausuario(Nome: String, email: String, senha: String, id: String){
 
-        referenciafirebase = ConfiguracaoFirebase.getFirebase()
+        referenciafirebase = ConfiguracaoFirebase.getFirebaseUsuario()
 
         val usuario = Usuario()
         usuario.setnome(Nome)

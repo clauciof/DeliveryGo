@@ -5,19 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".activitys.MainActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".activitys.MainActivity"
+    tools:openDrawer="start">
+
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+         <Button
+             android:id="@+id/botao_realiza_pedido"
+             android:layout_width="300dp"
+             android:layout_height="60dp"
+             android:layout_gravity="center"
+             android:background="@drawable/botao_login"
+             android:hint="Realizar pedido"
+             android:textColorHint="#000"
+             android:textSize="20dp" />
+      </FrameLayout>
+
+
+   </LinearLayout>
 
    <android.support.design.widget.NavigationView
        android:id="@+id/navigationview"
        app:headerLayout="@layout/header"
        android:layout_width="wrap_content"
        android:layout_height="match_parent"
-       android:background="@drawable/background"
+       android:background="#FFFFFF"
        app:itemTextColor="@color/darkgray"
        app:menu="@menu/drawermenu"
        android:layout_gravity="start"
        >
 
    </android.support.design.widget.NavigationView>
+
 
 </android.support.v4.widget.DrawerLayout>

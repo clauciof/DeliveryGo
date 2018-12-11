@@ -4,11 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="176dp"
     android:background="@color/colorPrimary"
+    android:orientation="horizontal"
+    android:gravity="bottom"
+    android:padding="16dp"
     >
 
     <ImageView
+        android:id="@+id/foto_usuario"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="16dp"
@@ -21,13 +25,15 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/nickname_usuario"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="Nome"
+            android:text="Nickname"
             android:textSize="15dp"
             android:layout_marginTop="16dp"
             />
         <TextView
+            android:id="@+id/email_usuario"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="email@email.com"

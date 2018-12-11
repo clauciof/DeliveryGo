@@ -59,7 +59,6 @@ class Login: AppCompatActivity() {
 
             val pagina_cadastro = Intent(this, Cadastro::class.java)
             startActivity(pagina_cadastro)
-            finish()
         }
     }
 }
