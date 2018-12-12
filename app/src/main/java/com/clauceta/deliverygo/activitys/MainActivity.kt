@@ -3,6 +3,7 @@ package com.clauceta.deliverygo.activitys
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -14,27 +15,44 @@ import android.widget.Toast
 import com.clauceta.deliverygo.R
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
+import com.bumptech.glide.request.RequestOptions
 import com.clauceta.deliverygo.BuildConfig
 import com.clauceta.deliverygo.config.GlideApp
+import com.clauceta.deliverygo.models.Pedido
 import com.clauceta.deliverygo.models.Usuario
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.header.*
-
+import kotlinx.android.synthetic.main.seus_pedidos_fragment.*
 
 
 import java.io.File
+import com.google.firebase.database.DataSnapshot
+
+
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-   /* var database = FirebaseDatabase.getInstance()
-    var DBreferencia_usuario = database.getReference("Usuario")
-    var DBreferencia_pedido = database.getReference("Pedido")*/
+    // retorna id unico do usuario logado
     var firebaseauth = FirebaseAuth.getInstance().currentUser!!.uid
+
+    // referencia para a classe usuario do usuario logado
     var usuarioatual = FirebaseDatabase.getInstance().reference.child("Usuario").child(firebaseauth)
+
+    //referencia da autenticação
     var firebaseusuario = FirebaseAuth.getInstance()
+
+
+    // referencia para a classe usuario do usuario logado
+    var pedidosUsuario = FirebaseDatabase.getInstance().reference.child("Pedido")
+
+
+    //Lista de Pedidos
+
+    var pedidosLista: MutableList<Pedido> = mutableListOf()
 
 
     var caminhoFoto:String? = null //salva o caminho da foto tirada
@@ -49,14 +67,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        carregaDados(this)
+
         navigationview.setNavigationItemSelectedListener(this)
         val headView: View = navigationview.getHeaderView(0)
         val fotoPerfil: ImageView = headView.findViewById(R.id.foto_usuario)
 
-        carregaDados(this)
 
-        fotoPerfil.setOnClickListener {
-            tiraFoto()
+        var navigationView: NavigationView = findViewById(R.id.navigationview)
+
+        var headerview: View = navigationView.getHeaderView(0)
+
+        headerview.setOnClickListener {
+           foto_usuario.setOnClickListener(){
+               carregafoto()
+           }
         }
 
         botao_realiza_pedido.setOnClickListener {
@@ -66,41 +92,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         Toast.makeText(this, firebaseauth, Toast.LENGTH_SHORT).show()
 
-
-        /*val usuario = Usuario()
-        val pedido = Pedido()
+}
 
 
-        usuario.setnome("Claucio Filho")
-        usuario.setemail("claucio@gmail.com")
-        usuario.setid(0)
-        usuario.setsenha("tsaftsfatsa")
-
-        pedido.setPedido_origem_rua("Rua Sao Joaquim")
-        pedido.setPedido_origem_numero("1731 ap 11")
-        pedido.setPedido_destino_rua("AV. Carlos Botelho")
-        pedido.setPedido_destino_numero("4040")
-        pedido.setPedido_descricao("sanduiche")
-
-
-        DBreferencia_usuario.child(usuario.getid().toString()).setValue(usuario)
-
-        DBreferencia_pedido.child(pedido.getId().toString()).setValue(pedido)*/
-    }
-
-
-
-     override fun onNavigationItemSelected(item: MenuItem):Boolean {
+    override fun onNavigationItemSelected(item: MenuItem):Boolean {
 
 
         when(item.itemId){
 
-            R.id.foto_usuario ->{
-                tiraFoto()
-            }
-
             R.id.seuspedidos ->{
-                Toast.makeText(this, "seus pedidos", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(this, "seus pedidos", Toast.LENGTH_SHORT).show()
+
+                val pagina_seus_pedidos = Intent(this, SeusPedidos::class.java)
+                startActivity(pagina_seus_pedidos)
             }
 
             R.id.suasentregas ->{
@@ -127,19 +131,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
          return true
     }
 
-     fun onDrawerOpened (drawerView: View){
+     fun carregafoto (){
+         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+         intent.setType("image/*")
+         intent.setAction(Intent.ACTION_GET_CONTENT)
+         startActivityForResult(intent, REQUEST_CAMERA)
     }
 
 
 
     fun tiraFoto(){
-       /* val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivityForResult(intent, REQUEST_CAMERA)
-        }else{
-            Toast.makeText(this, "Impossivel tirar foto", Toast.LENGTH_SHORT).show()
-        }*/
 
         val tirarFoto = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
@@ -167,19 +168,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         //Recebendo o resultado do Request de Camera
         //exibe a foto retornada pelo aplicativo de câmera
         if(requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK){
 
-          /*  GlideApp.with(this)
+         var path: Uri
+
+         path = data!!.data
+
+         caminhoFoto = path.toString()
+
+          GlideApp.with(this)
                     .load(caminhoFoto)
-                    //placeholder(R.drawable.foto) nao usado
+                    .placeholder(R.drawable.ic_usuario)
                     .centerCrop()
+                    .apply(RequestOptions().circleCrop())
                     .into(foto_usuario)
 
-           caminhoFotoAceita = caminhoFoto */
-
+           caminhoFotoAceita = caminhoFoto
         }
     }
 
@@ -187,16 +195,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //exibe as informações do contatinho na Activity
     private fun carregaDados(context: Context) {
 
-      /*  GlideApp.with(this)
-                .load(caminhoFoto)
-                //placeholder(R.drawable.foto) nao usado
-                .centerCrop()
-                .into(foto_usuario)
-
-        caminhoFotoAceita = caminhoFoto*/
-
-
-        // User data change listener
+        // Listener para retornar dados basicos do usuario da nuvem
         usuarioatual.addListenerForSingleValueEvent(object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -206,8 +205,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 usuario.setemail(dataSnapshot.child("email").value.toString())
 
 
-                nickname_usuario.setText(usuario.getnome())
-                email_usuario.setText(usuario.getemail())
+                nickname_usuario.text = usuario.getnome()
+                email_usuario.text = usuario.getemail()
+
+                GlideApp.with(context)
+                        .load(usuario.getcaminhofoto())
+                        .placeholder(R.drawable.ic_usuario)
+                        .centerCrop()
+                        .apply(RequestOptions().circleCrop())
+                        .into(foto_usuario)
+
+                caminhoFotoAceita = caminhoFoto
 
             }
 

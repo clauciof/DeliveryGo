@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.clauceta.deliverygo">
 
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,9 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activitys.MainActivity" android:theme="@style/AppTheme.NoActionBar">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="br.com.brunoazevedo.contatinhos.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
-        </activity>
+        <activity
+            android:name=".activitys.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".activitys.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +34,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activitys.Cadastro" />
-        <activity android:name=".activitys.RealizaPedido"></activity>
+        <activity android:name=".activitys.RealizaPedido" />
+        <activity android:name=".activitys.SeusPedidos"></activity>
     </application>
 
 </manifest>

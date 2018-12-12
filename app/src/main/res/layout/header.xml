@@ -8,7 +8,7 @@
     android:background="@color/colorPrimary"
     android:orientation="horizontal"
     android:gravity="bottom"
-    android:padding="16dp"
+    android:clickable="true"
     >
 
     <ImageView
@@ -17,6 +17,8 @@
         android:layout_height="70dp"
         android:layout_margin="16dp"
         android:background="@drawable/bordas_redondas"
+        android:src="@drawable/ic_usuario"
+        android:clickable="true"
         />
 
     <LinearLayout

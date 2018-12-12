@@ -6,6 +6,7 @@ package com.clauceta.deliverygo.models
      private var email: String = "email"
      private var id: String = " "
      private var senha: String = "_senha"
+     private var caminhoFoto: String? = null
 
 
      open fun setnome(nome: String){
@@ -22,6 +23,14 @@ package com.clauceta.deliverygo.models
 
      open fun setsenha(senha: String){
          this.senha = senha
+     }
+
+     open fun setcaminhofoto(caminhofoto: String){
+         this.caminhoFoto = caminhofoto
+     }
+
+     open fun getcaminhofoto(): String? {
+         return this.caminhoFoto
      }
 
      open fun getnome(): String{
