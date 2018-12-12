@@ -51,15 +51,15 @@ class SeusPedidos : AppCompatActivity() {
                        pedido.setPedido_origem_rua(it.child("pedido_origem_rua").value.toString())
                        pedido.setPedido_destino_rua(it.child("pedido_destino_rua").value.toString())
                        pedidosLista.add(count, pedido)
-                       val adapter = PedidosAdapter(context, pedidosLista)
-                       rvPedidos.adapter = adapter
-                       rvPedidos.layoutManager = LinearLayoutManager(context)
 
                        Toast.makeText(context,pedidosLista[count].getPedido_descricao(), Toast.LENGTH_SHORT).show()
                        count++
                     }
 
                 }
+                val adapter = PedidosAdapter(context, pedidosLista)
+                rvPedidos.adapter = adapter
+                rvPedidos.layoutManager = LinearLayoutManager(context)
 
                //Toast.makeText(context,count.toString(), Toast.LENGTH_SHORT).show()
                //Toast.makeText(context,firebaseauth, Toast.LENGTH_SHORT).show()
