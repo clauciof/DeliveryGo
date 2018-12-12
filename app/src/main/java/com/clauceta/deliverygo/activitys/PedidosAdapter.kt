@@ -31,13 +31,15 @@ class PedidosAdapter(val context: Context, val pedido: List<Pedido>)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindView(context, pedido[position])
+        holder.bindView(context, pedido[position], position)
+        Toast.makeText(context,pedido[position].getPedido_descricao(), Toast.LENGTH_SHORT).show()
+
 
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindView(context: Context, pedido: Pedido) {
+        fun bindView(context: Context, pedido: Pedido, position: Int) {
             itemView.descricao_pedido.text = pedido.getPedido_descricao()
             itemView.origem.text = "Origem: "+pedido.getPedido_origem_rua()
             itemView.destino.text = "Destindo: "+pedido.getPedido_destino_rua()
