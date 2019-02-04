@@ -118,6 +118,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(this, "enderecos", Toast.LENGTH_SHORT).show()
             }
 
+            R.id.editarperfil->{
+                val pagina_edita_perfil = Intent(this, EditaPerfilActivity::class.java)
+                startActivity(pagina_edita_perfil)
+            }
+
             R.id.sair ->{
                 Toast.makeText(this, "sair", Toast.LENGTH_SHORT).show()
                 firebaseusuario.signOut()

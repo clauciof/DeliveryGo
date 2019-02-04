@@ -53,7 +53,7 @@ class FragmentSeusPedidos: Fragment() {
 
         val pedidos = arguments?.getSerializable(ARG_LIST) as ArrayList<Pedido>?
         if(pedidos == null){
-            throw NullPointerException("Articles list can not be null")
+            throw NullPointerException("Articles list can not be null") as Throwable
         }
 
        activity?.let{ that ->
