@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
 
-    fun tiraFoto(){
+   /* fun tiraFoto(){
 
         val tirarFoto = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
@@ -170,6 +170,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return arquivoFoto
     }
 
+       */
 
 
 

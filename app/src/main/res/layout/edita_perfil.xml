@@ -17,7 +17,9 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:padding="16dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:src="@drawable/ic_usuario"
+            android:id="@+id/icone_mudar_foto_perfil"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -30,7 +32,8 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint=":)"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -43,7 +46,8 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint=":)"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -56,7 +60,8 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint=":)"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -69,12 +74,15 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint=":)"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:text="Salvar"
+            android:id="@+id/botao_salvar_editar_perfil"/>
 
 
 

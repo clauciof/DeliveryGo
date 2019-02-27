@@ -33,9 +33,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.Cadastro" />
-        <activity android:name=".activitys.RealizaPedido" />
+        <activity android:name=".activitys.Cadastro" > </activity>
+        <activity android:name=".activitys.RealizaPedido" > </activity>
         <activity android:name=".activitys.SeusPedidos"></activity>
+        <activity android:name=".activitys.EditaPerfilActivity"></activity>
     </application>
 
 </manifest>
