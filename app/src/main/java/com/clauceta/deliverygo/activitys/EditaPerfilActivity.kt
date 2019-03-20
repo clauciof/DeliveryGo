@@ -1,6 +1,7 @@
 package com.clauceta.deliverygo.activitys
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -34,7 +36,12 @@ class EditaPerfilActivity: AppCompatActivity() {
     // referencia o Storage ~do usuario logado~ do Firebase
     var fotoStorage = FirebaseStorage.getInstance().getReference("UsersPhotos").child(id_current_user)
 
+    // referencia para a classe usuario do usuario logado
+    var usuarioatual = FirebaseDatabase.getInstance().reference.child("Usuario").child(id_current_user)
+
     var ofotoStorage = FirebaseStorage.getInstance().getReference("UsersPhotos").child(id_current_user).child("fotoPerfil.jpeg")
+
+    var urldafoto: String? = null
 
 
     var caminhoFoto:String? = null //salva o caminho da foto tirada
@@ -51,13 +58,7 @@ class EditaPerfilActivity: AppCompatActivity() {
 
         setContentView(R.layout.edita_perfil)
 
-            GlideApp.with(this)
-                    .load("https://firebasestorage.googleapis.com/v0/b/deliverygo-f8c57.appspot.com/o/UsersPhotos%2F"+id_current_user+"%2FfotoPerfil?alt=media&token=cef2b634-27cf-4a13-8ff5-ff49af8c70b4")
-                    .placeholder(R.drawable.ic_usuario)
-                    .centerCrop()
-                    .apply(RequestOptions().circleCrop())
-                    .into(icone_mudar_foto_perfil)
-
+        carregaDados(this)
 
 
         icone_mudar_foto_perfil.setOnClickListener{
@@ -118,9 +119,49 @@ class EditaPerfilActivity: AppCompatActivity() {
         caminhoFotoPerfil.delete().addOnSuccessListener {
             Toast.makeText(this,"deletou!",Toast.LENGTH_SHORT).show()
         }
-        caminhoFotoAceita.putFile(path!!)
+        caminhoFotoAceita.putFile(path!!).addOnSuccessListener {
+            val result = it.metadata!!.reference!!.downloadUrl
+
+            result.addOnSuccessListener {
+                val urlFotoPerfil = it.toString()
+
+                usuarioatual.child("urlfotoperfil").setValue(urlFotoPerfil)
+
+
+            }
+        }
 
     }
+
+    private fun carregaDados(context: Context) {
+
+
+
+
+       // Listener para retornar dados basicos do usuario da nuvem
+        usuarioatual.addListenerForSingleValueEvent(object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+             urldafoto = dataSnapshot.child("urlfotoperfil").value.toString()
+
+                GlideApp.with(context)
+                        .load(urldafoto)
+                        .placeholder(R.drawable.ic_usuario)
+                        .centerCrop()
+                        .apply(RequestOptions().circleCrop())
+                        .into(icone_mudar_foto_perfil)
+
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+    }
+
 
 
 }

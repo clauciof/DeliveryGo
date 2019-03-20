@@ -43,14 +43,6 @@ class SeusPedidos : AppCompatActivity() {
 
                 var count: Int = 0
 
-               // var filho =  dataSnapshot.children
-                //var query: Query
-
-                //passando por todos os pedidos e adicionando cada pedido na lista
-               /* dataSnapshot.children.forEach {
-
-                    }*/
-
                 var contaMatch: Int = 0
                 dataSnapshot.children.forEach(){
 
@@ -68,37 +60,11 @@ class SeusPedidos : AppCompatActivity() {
 
                     }
 
-
-                    //val Descricaoitem1 = pedidosLista[0].getPedido_descricao()
-                    //Toast.makeText(context, pedidosLista[count].getPedido_descricao(),Toast.LENGTH_SHORT).show()
-                    //Toast.makeText(context,pedidosLista[count].getPedido_descricao(), Toast.LENGTH_SHORT).show()
-
                 }
-                //Toast.makeText(context, contaMatch.toString(), Toast.LENGTH_SHORT).show()
-               // Toast.makeText(context, count.toString(),Toast.LENGTH_SHORT).show()
-              /*  while (count>=0){
-                    Toast.makeText(context,pedidosLista[count].getPedido_descricao(), Toast.LENGTH_SHORT).show()
 
-                    count = count - 1
-                }*/
-
-
-
-
-               /* val Descricaoitem1 = pedidosLista[0].getPedido_descricao()
-                val Descricaoitem2 = pedidosLista[1].getPedido_descricao() */
-
-
-               // Toast.makeText(context, "Descricaoitem1"+Descricaoitem1,Toast.LENGTH_SHORT).show()
-               // Toast.makeText(context,"Descricaoitem2"+Descricaoitem2,Toast.LENGTH_SHORT).show()
                 val adapter = PedidosAdapter(context, pedidosLista)
                 rvPedidos.adapter = adapter
                 rvPedidos.layoutManager = LinearLayoutManager(context)
-
-                //Toast.makeText(context, countDataChange.toString(),Toast.LENGTH_SHORT).show()
-
-               //Toast.makeText(context,count.toString(), Toast.LENGTH_SHORT).show()
-               //Toast.makeText(context,firebaseauth, Toast.LENGTH_SHORT).show()
 
             }
             override fun onCancelled(error: DatabaseError) {

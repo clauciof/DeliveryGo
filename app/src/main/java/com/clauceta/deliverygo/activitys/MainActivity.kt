@@ -31,19 +31,23 @@ import kotlinx.android.synthetic.main.seus_pedidos_fragment.*
 
 import java.io.File
 import com.google.firebase.database.DataSnapshot
-
-
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     // retorna id unico do usuario logado
-    var firebaseauth = FirebaseAuth.getInstance().currentUser!!.uid
+    var id_current_user = FirebaseAuth.getInstance().currentUser!!.uid
 
     // referencia para a classe usuario do usuario logado
-    var usuarioatual = FirebaseDatabase.getInstance().reference.child("Usuario").child(firebaseauth)
+    var usuarioatual = FirebaseDatabase.getInstance().reference.child("Usuario").child(id_current_user)
 
     //referencia da autenticação
     var firebaseusuario = FirebaseAuth.getInstance()
+
+
+    // referencia o Storage ~do usuario logado~ do Firebase
+    var fotoStorage = FirebaseStorage.getInstance().getReference("UsersPhotos").child(id_current_user)
 
 
     // referencia para a classe usuario do usuario logado
@@ -90,7 +94,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(pagina_realiza_pedido)
         }
 
-        Toast.makeText(this, firebaseauth, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, id_current_user, Toast.LENGTH_SHORT).show()
 
 }
 
@@ -144,36 +148,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
-
-   /* fun tiraFoto(){
-
-        val tirarFoto = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
-        if (tirarFoto.resolveActivity(packageManager) != null) {
-            val arquivoFoto = montaArquivoFoto()
-            val uriFoto = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.fileprovider", arquivoFoto)
-            tirarFoto.putExtra(MediaStore.EXTRA_OUTPUT, uriFoto)
-            startActivityForResult(tirarFoto, REQUEST_CAMERA)
-        } else {
-            Toast.makeText(this, "Impossível tirar foto", Toast.LENGTH_SHORT).show()
-        }
-
-    }
-
-    private fun montaArquivoFoto(): File {
-        val nomeArquivo = System.currentTimeMillis().toString()
-        val diretorioArquivo = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val arquivoFoto = File.createTempFile(nomeArquivo, "jpg", diretorioArquivo)
-
-        caminhoFoto = arquivoFoto.absolutePath
-
-        return arquivoFoto
-    }
-
-       */
-
-
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         //Recebendo o resultado do Request de Camera
@@ -184,7 +158,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
          path = data!!.data
 
-         caminhoFoto = path.toString()
+         var ocaminhoFoto = fotoStorage
+
+        caminhoFoto = path.toString()
+
+        // updateFoto(caminhoFoto, path)
 
           GlideApp.with(this)
                     .load(caminhoFoto)
@@ -198,8 +176,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
-    //exibe as informações do contatinho na Activity
+    //exibe as informações dousuario na Activity
     private fun carregaDados(context: Context) {
+
 
         // Listener para retornar dados basicos do usuario da nuvem
         usuarioatual.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -215,7 +194,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 email_usuario.text = usuario.getemail()
 
                 GlideApp.with(context)
-                        .load(usuario.getcaminhofoto())
+                        .load(caminhoFoto)
                         .placeholder(R.drawable.ic_usuario)
                         .centerCrop()
                         .apply(RequestOptions().circleCrop())
@@ -229,6 +208,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
         })
+
+    }
+
+
+    fun updateFoto(caminhoFotoAceita: StorageReference, path: Uri){
+
+
+        val caminhoFotoPerfil = caminhoFotoAceita
+
+        caminhoFotoPerfil.delete().addOnSuccessListener {
+            Toast.makeText(this,"deletou!",Toast.LENGTH_SHORT).show()
+        }
+        caminhoFotoAceita.putFile(path!!)
 
     }
 

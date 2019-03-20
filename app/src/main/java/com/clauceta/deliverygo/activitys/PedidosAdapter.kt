@@ -44,18 +44,6 @@ class PedidosAdapter(val context: Context, val pedido: List<Pedido>)
             itemView.origem.text = "Origem: "+pedido.getPedido_origem_rua()
             itemView.destino.text = "Destindo: "+pedido.getPedido_destino_rua()
 
-           /* GlideApp.with(context)
-                    .load(article.urlToImage)
-                    .placeholder(R.drawable.no_image)
-                    .centerCrop()
-                    .into(itemView.imgNews) */
-
-          /* if(itemClickListener != null) {
-                itemView.setOnClickListener {
-                    itemClickListener.invoke(adapterPosition)
-                }
-            } */
-
         }
 
     }
