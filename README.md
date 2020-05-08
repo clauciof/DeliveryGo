@@ -1,5 +1,5 @@
 # DeliveryGo
-App de terceirização do serviço de entregas desenvolvido durante a disciplina de Desenvlvimento Mobile UFSCar
+App de terceirização do serviço de entregas desenvolvido durante a disciplina de Desenvolvimento Mobile UFSCar
 
 
 ## Descrição 
