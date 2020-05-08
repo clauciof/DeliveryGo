@@ -4,7 +4,7 @@ App de terceirização do serviço de entregas desenvolvido durante a disciplina
 
 ## Descrição 
 App realiza a terceirização do serviço de entregas. Qualquer pessoa pode se cadastrar e ser tanto um cliente ( pedir entregas ) quanto um entregador.
-Utiliza-se de banco de dados não relacional fo Firebase
+Utiliza-se de banco de dados não relacional do Firebase e 
 Arquitetura MVP
 
 ## Tela Inicial
